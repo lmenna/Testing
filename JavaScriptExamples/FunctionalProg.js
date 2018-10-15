@@ -68,6 +68,39 @@ exports.f_sumOfLengths = function(theArrayToSum) {
   return(sumOfLengths);
 }
 
+// Take an array of strings and return an array with a running total of lengths of all strings in the array
+// Return an array with running totals of lengths
+// Doesn't modify the original array.
+exports.arrayOfLengths = function(theArrayToSum) {
+
+    var lengths = [0];
+    var totalLength = 0;
+    for(var item of theArrayToSum) {
+      totalLength += item.length;
+      lengths.push(totalLength);
+    }
+    return(lengths);
+}
+//
+// Functional version of sumOfLengths (Reduce example)
+exports.f_arrayOfLengths = function(theArrayToSum) {
+
+  const total = (acc, item) => acc + item.length;
+
+  const lengths = theArrayToSum.scan(total, 0);
+  return(lengths);
+}
+
+Array.prototype.scan = function(callback, initialValue) {
+  const appendAggregate = (acc, item) => {
+    const aggregate = acc.slice(-1)[0] // get last item
+    const newAggregate = callback(aggregate, item);
+    return [...acc, newAggregate];
+  }
+  const accumulator = [initialValue];
+  return(this.reduce(appendAggregate, accumulator));
+}
+
 console.log("\nRuns several array operations using procedural and functional implementations.\n");
 
 // Run the various tests and output the results.
@@ -99,3 +132,12 @@ var f_totalOfLengths = exports.f_sumOfLengths(testFilterArray);
 console.log("Original Array:", testFilterArray);
 console.log("Total of all string lengths imperative:", totalOfLengths);
 console.log("Total of all string lengths functional:", f_totalOfLengths);
+
+// Run the scan example to get running total of sum of lengths
+console.log("->> Example 4: Running total of sum the lengths of all strings in an array.")
+var testLengthsArray = ["name1", "name2", "AbCd"];
+var arrayOfLengths = exports.arrayOfLengths(testFilterArray);
+var f_arrayOfLengths = exports.f_arrayOfLengths(testFilterArray);
+console.log("Original Array:", testFilterArray);
+console.log("Total of all string lengths imperative:", arrayOfLengths);
+console.log("Total of all string lengths functional:", f_arrayOfLengths);

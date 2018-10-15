@@ -25,10 +25,26 @@ describe('FilterArray', function() {
 describe('ReduceArray', function() {
   describe('#reduceTheArray()', function() {
     it('should reduce the array', function() {
-      var testFilterArray = ["Ab","a","b"];
-      assert.equal((functional.sumOfLengths(testFilterArray)), 4);
-      assert.equal((functional.sumOfLengths(testFilterArray)),
-        functional.f_sumOfLengths(testFilterArray));
+      var testReduceArray = ["Ab","a","b"];
+      assert.equal((functional.sumOfLengths(testReduceArray)), 4);
+      assert.equal((functional.sumOfLengths(testReduceArray)),
+        functional.f_sumOfLengths(testReduceArray));
+    });
+  });
+});
+
+
+describe('ScanArray', function() {
+  describe('#scanTheArray()', function() {
+    it('should scan the array', function() {
+      var testScanArray = ["Ab","a","b"];
+      assert.equal(functional.arrayOfLengths(testScanArray)[1], 2);
+      assert.equal(functional.arrayOfLengths(testScanArray)[0],
+        functional.f_arrayOfLengths(testScanArray)[0]);
+      assert.equal(functional.arrayOfLengths(testScanArray)[1],
+        functional.f_arrayOfLengths(testScanArray)[1]);
+      assert.equal(functional.arrayOfLengths(testScanArray)[2],
+        functional.f_arrayOfLengths(testScanArray)[2]);
     });
   });
 });
