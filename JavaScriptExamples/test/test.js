@@ -1,14 +1,6 @@
 var assert = require('assert');
 var functional = require('../FunctionalProg.js');
 
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when value is not present', function() {
-      assert.equal([1,2,3].indexOf(4), -1);
-    });
-  });
-});
-
 describe('Uppercase', function() {
   describe('#uppercaseTheArray()', function() {
     it('should turn elements in an array to uppercase', function() {
@@ -23,8 +15,20 @@ describe('FilterArray', function() {
   describe('#filterTheArray()', function() {
     it('should filter elements from the array', function() {
       var testFilterArray = ["Aname1","another","abcd"];
-      assert.equal((functional.filterTheArray(testFilterArray)).length,
-        (functional.f_filterTheArray(testFilterArray)).length);
+      assert.equal((functional.filterTheArray(testFilterArray, 4)).length,
+        (functional.f_filterTheArray(testFilterArray, 4)).length);
+    });
+  });
+});
+
+
+describe('ReduceArray', function() {
+  describe('#reduceTheArray()', function() {
+    it('should reduce the array', function() {
+      var testFilterArray = ["Ab","a","b"];
+      assert.equal((functional.sumOfLengths(testFilterArray)), 4);
+      assert.equal((functional.sumOfLengths(testFilterArray)),
+        functional.f_sumOfLengths(testFilterArray));
     });
   });
 });
