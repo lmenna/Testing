@@ -93,6 +93,7 @@ exports.f_arrayOfLengths = function(theArrayToSum) {
 // Create an array scan method. (Like Haskell's scanl function)
 Array.prototype.scan = function(callback, initialValue) {
   const appendAggregate = (acc, item) => {
+console.log("acc:", acc, " item:", item);
     const aggregate = acc.slice(-1)[0] // get last item
     const newAggregate = callback(aggregate, item);
     return [...acc, newAggregate];
@@ -181,3 +182,27 @@ var f_hashMapFromArray = exports.f_arrayToMap(testMapArray);
 console.log("Original Array:", testMapArray);
 console.log("Hashmap from the array imperative:", hashMapFromArray);
 console.log("Hashmap from the array functional:", f_hashMapFromArray);
+
+// These are some extra examples showing how map, reduce and filter work in JavaScript
+console.log("->> Appendix: Running map")
+var testArray = [ {key: 1, name: "name1"},
+                  {key: 2, name: "name2"},
+                  {key: 3, name: "name3"},
+                  {key: 4, name: "name3 is a much longer string...."}];
+// map(callback, optional_context)
+// Callback here is the arrow => function
+// map will go through each element in the array (aryElement here which is key value pairs) and call
+// a function on it that extracts the .key element.
+const keys = testArray.map(aryElement => aryElement.key );
+console.log("testArray: ", testArray);
+console.log("keys in testArray: ", keys);
+// We could also do something very simple like have the callback just return a const value of 1
+// This results in 1 being returned for each element in the Array
+const justOnes = testArray.map(aryElement => 1 );
+console.log("justOnes: ", justOnes);
+// Instead of key we can also return the names in the elements
+const allNames = testArray.map(aryElement => aryElement.name );
+console.log("The Names: ", allNames);
+// Now lets get the length of the names
+const allNamesLen = testArray.map(aryElement => aryElement.name.length );
+console.log("The Name Lengths: ", allNamesLen);
