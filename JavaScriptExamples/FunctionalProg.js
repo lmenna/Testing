@@ -90,7 +90,7 @@ exports.f_arrayOfLengths = function(theArrayToSum) {
   const lengths = theArrayToSum.scan(total, 0);
   return(lengths);
 }
-
+// Create an array scan method. (Like Haskell's scanl function)
 Array.prototype.scan = function(callback, initialValue) {
   const appendAggregate = (acc, item) => {
     const aggregate = acc.slice(-1)[0] // get last item
@@ -101,9 +101,39 @@ Array.prototype.scan = function(callback, initialValue) {
   return(this.reduce(appendAggregate, accumulator));
 }
 
-console.log("\nRuns several array operations using procedural and functional implementations.\n");
+// Convert an array to a map of key value pairs.  For each item the key will be
+// the string and the value will be a function run on that string
+// Return the map of key value pairs
+// Doesn't modify the original array.
+const process = item => item.length;
+
+exports.arrayToMap = function(theArrayToMap) {
+
+  var hash = {};
+  for (var item of theArrayToMap) {
+    hash[item] = process(item);
+  }
+  return(hash);
+}
+//
+// Functional version of arrayToMap
+exports.f_arrayToMap = function(theArrayToMap) {
+
+  var hash = theArrayToMap.mash(item => [item, process(item)]);
+  return(hash);
+}
+// Create an Array mash function
+Array.prototype.mash = function(callback) {
+  const addKeyValuePair = (acc, item) => {
+    const [key, value] = callback ? callback(item) : item;
+    return {...acc, [key]: value}
+  }
+  return this.reduce(addKeyValuePair, {});
+}
+
 
 // Run the various tests and output the results.
+console.log("\nRuns several array operations using procedural and functional implementations.\n");
 // Run the uppercase code.
 console.log("->> Example 1: Turn all strings in an array to uppercase.")
 var testUppercaseArray = ["name1", "name2", "AbCd"];
@@ -141,3 +171,13 @@ var f_arrayOfLengths = exports.f_arrayOfLengths(testFilterArray);
 console.log("Original Array:", testFilterArray);
 console.log("Total of all string lengths imperative:", arrayOfLengths);
 console.log("Total of all string lengths functional:", f_arrayOfLengths);
+
+// Run the mash example to convert a string array to a map, with the strings
+// as keys and the value being a function like "length" applied to the key
+console.log("->> Example 5: Running mash to convert an array to a hashmap")
+var testMapArray = ["name1", "name2", "AbCd"];
+var hashMapFromArray = exports.arrayToMap(testMapArray);
+var f_hashMapFromArray = exports.f_arrayToMap(testMapArray);
+console.log("Original Array:", testMapArray);
+console.log("Hashmap from the array imperative:", hashMapFromArray);
+console.log("Hashmap from the array functional:", f_hashMapFromArray);

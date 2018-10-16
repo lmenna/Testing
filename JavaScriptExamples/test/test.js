@@ -48,3 +48,15 @@ describe('ScanArray', function() {
     });
   });
 });
+
+describe('MashArray', function() {
+  describe('#mashTheArray()', function() {
+    it('should mash the array', function() {
+      var testScanArray = ["Ab","a","b"];
+      assert.equal(functional.arrayToMap(testScanArray)["Ab"], 2);
+      assert.equal(functional.f_arrayToMap(testScanArray)["Ab"], 2);
+      assert.equal(functional.arrayToMap(testScanArray)[testScanArray[1]],
+        functional.f_arrayToMap(testScanArray)[testScanArray[1]]);
+    });
+  });
+});
