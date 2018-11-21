@@ -1,2 +1,6 @@
 node_modules/
 BigQuery/node_modules/
+BabelExample/node_modules/
+mongo-from-node/node_modules/
+mongo-test/node_modules/
+

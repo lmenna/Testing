@@ -1,0 +1,1 @@
+{"version":3,"sources":["../server/test.js"],"names":["test","msg","console","log"],"mappings":";;;;;AAAA,IAAMA,OAAO,SAAPA,IAAO,CAACC,GAAD,EAAS;AACpBC,UAAQC,GAAR,CAAY,oCAAZ;AACD,CAFD;;kBAIeH,I","file":"test.js","sourcesContent":["const test = (msg) => {\n  console.log(\"Babel testing.  Production worked!\");\n}\n\nexport default test;\n"]}
