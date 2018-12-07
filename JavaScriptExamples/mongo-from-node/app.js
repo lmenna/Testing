@@ -1,3 +1,4 @@
+// npm install mongodb --save-dev
 var mongodb = require('mongodb');
 
 var MongoClient = mongodb.MongoClient;
