@@ -5,3 +5,5 @@ mongo-from-node/node_modules/
 mongo-test/node_modules/
 AsyncAwait/node_modules/
 StackSkillsExamples/node_modules/
+CleanExamples/node_modules/
+ExamplesInBrowser/node_modules/
