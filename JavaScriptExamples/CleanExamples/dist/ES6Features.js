@@ -10,6 +10,9 @@ exports.scopeTestVar = scopeTestVar;
 exports.scopeTestLet = scopeTestLet;
 exports.forEachTest = forEachTest;
 exports.forEachAnonymousTest = forEachAnonymousTest;
+exports.mapArray01 = mapArray01;
+exports.filterArray01 = filterArray01;
+exports.objectLiterals = objectLiterals;
 exports.Employee = exports.PersonClass = void 0;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -200,5 +203,39 @@ function forEachAnonymousTest(aNumbersArray) {
     result.push(2 * number);
   });
   return result;
+}
+/* mapArray01
+ * desc: A simple example of how to map across an array, perform and operation on each element and return a new array
+ */
+
+
+function mapArray01(anArrayOfNumbers) {
+  return anArrayOfNumbers.map(function (element) {
+    return 2 * element;
+  });
+}
+/* filterArray01
+ * desc: A simple example of how to filter an array, select elements based on a condition and return a new array
+ */
+
+
+function filterArray01(anArrayOfNumbers) {
+  return anArrayOfNumbers.filter(function (element) {
+    if (element % 2 != 0) {
+      return element;
+    }
+  });
+}
+/* objectLiterals
+ * desc: Can now return name value pairs where the names are filled in automatically.
+ */
+
+
+function objectLiterals(title, author, genre) {
+  return {
+    title: title,
+    author: author,
+    genre: genre
+  };
 }
 //# sourceMappingURL=ES6Features.js.map

@@ -139,5 +139,37 @@ function forEachAnonymousTest(aNumbersArray) {
   return(result);
 }
 
+/* mapArray01
+ * desc: A simple example of how to map across an array, perform and operation on each element and return a new array
+ */
+ function mapArray01(anArrayOfNumbers) {
+   return(anArrayOfNumbers.map( (element) => {
+     return(2*element);
+   }));
+ }
+
+ /* filterArray01
+  * desc: A simple example of how to filter an array, select elements based on a condition and return a new array
+  */
+  function filterArray01(anArrayOfNumbers) {
+    return(anArrayOfNumbers.filter( (element) => {
+      if(element%2 != 0) {
+        return(element);
+      }
+    }));
+  }
+
+/* objectLiterals
+ * desc: Can now return name value pairs where the names are filled in automatically.
+ */
+ function objectLiterals(title, author, genre) {
+   return({
+     title,
+     author,
+     genre
+   });
+ }
+
 export { defaultParametersMultiply, templateLiterals, multiLineStrings,
-  scopeTestVar, scopeTestLet, PersonClass, Employee, forEachTest, forEachAnonymousTest }
+  scopeTestVar, scopeTestLet, PersonClass, Employee, forEachTest, forEachAnonymousTest,
+  mapArray01, filterArray01, objectLiterals }

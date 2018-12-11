@@ -80,6 +80,22 @@ function runES6Features() {
   console.log("forEachTest result:", result);
   var resultAnonymous = (0, _ES6Features.forEachAnonymousTest)(aNumberArray);
   console.log("forEachAnonymousTest resultAnonymous:", resultAnonymous);
+  console.log("Map across an array and double each element");
+  console.log("Original array:", aNumberArray);
+  console.log("Result from mapping that doubles each element:", (0, _ES6Features.mapArray01)(aNumberArray));
+  console.log("Filter array selecting out odd numbers");
+  console.log("Original array:", aNumberArray);
+  console.log("Filtered array showing only odd numbers:", (0, _ES6Features.filterArray01)(aNumberArray));
+  console.log("Object literals (name value pairs) now automatically set the names");
+  console.log("Title, author, genre example:", (0, _ES6Features.objectLiterals)("The Hobbit", "J.R.R. Tolkein", "Fantasy"));
+  console.log("Destructuring is where you pull name value pairs out of an object.");
+  var sampleObj = {
+    a: "this is a",
+    b: "this is b",
+    c: "this is c"
+  };
+  console.log("Object is:", sampleObj);
+  console.log("Pull out a and c.  a:", sampleObj.a, " c:", sampleObj.c);
 }
 
 runES6Features();

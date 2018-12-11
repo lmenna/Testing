@@ -1,7 +1,8 @@
 import { PersonClosure } from "./Closure";
 import { aBigOne, addOne, aBigOneBN, addOneBN } from "./BigNumbers";
 import { defaultParametersMultiply, templateLiterals, multiLineStrings,
-  scopeTestVar, scopeTestLet, PersonClass, Employee, forEachTest, forEachAnonymousTest } from "./ES6Features";
+  scopeTestVar, scopeTestLet, PersonClass, Employee, forEachTest, forEachAnonymousTest,
+   mapArray01, filterArray01, objectLiterals } from "./ES6Features";
 
 function runClosureExample() {
   console.log("Closure Example");
@@ -79,7 +80,21 @@ function runES6Features() {
     console.log("Input Array:", aNumberArray);
     console.log("forEachTest result:", result)
     let resultAnonymous = forEachAnonymousTest(aNumberArray);
-    console.log("forEachAnonymousTest resultAnonymous:", resultAnonymous)    
+    console.log("forEachAnonymousTest resultAnonymous:", resultAnonymous)
+    console.log("Map across an array and double each element");
+    console.log("Original array:", aNumberArray);
+    console.log("Result from mapping that doubles each element:", mapArray01(aNumberArray));
+    console.log("Filter array selecting out odd numbers");
+    console.log("Original array:", aNumberArray);
+    console.log("Filtered array showing only odd numbers:", filterArray01(aNumberArray));
+    console.log("Object literals (name value pairs) now automatically set the names");
+    console.log("Title, author, genre example:", objectLiterals("The Hobbit", "J.R.R. Tolkein", "Fantasy"));
+    console.log("Destructuring is where you pull name value pairs out of an object.");
+    let sampleObj = { a: "this is a",
+      b: "this is b",
+      c: "this is c"};
+    console.log("Object is:", sampleObj);
+    console.log("Pull out a and c.  a:", sampleObj.a, " c:", sampleObj.c);
 }
 
 runES6Features();
