@@ -2,10 +2,50 @@
 <html>
 <head>
 	<title>lite-server</title>
+	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <p>Hello from ./index.html</p>
 <p id="elem1">This is elem1</p>
+<p id="elem2">This is elem2</p>
+<p id="elem3">This is elem3</p>
+<p>Links to other examples</p>
+<p><a href="html/infoGraphic.html">Infographic #1</a></p>
+<div id="div1"></div>
+<br>
+<p>The following parts of the page are for testing JavaScript's interaction with the HTML DOM</p>
+<br>
+<div>
+	<h2 class="title">Sample List of Items</h2>
+	<ul id="ul1">
+		<li>
+			<span class="name">List item1</span>
+			<span class="delete">delete</span>
+		</li>
+		<li>
+			<span class="name">List item2</span>
+			<span class="delete">delete</span>
+		</li>
+		<li>
+			<span class="name">List item3</span>
+			<span class="delete">delete</span>
+		</li>
+		<li>
+			<span class="name">List item4</span>
+			<span class="delete">delete</span>
+		</li>
+	</ul>
+</div>
+<form id="add-item">
+	<input type="text" placeholder="Add an item..." />
+	<button>Add</button>
+</form>
+</div>
+<br/>
 </body>
 <script src="./src/app.js"></script>
+<!-- Closure example using timers. Requires div1 to be present on the page. -->
+<script src="./src/closureTimers.js"></script>
+<script src="./src/domTesting.js"></script>
+<script src="./src/infographicSteps.js"></script>
 </html>

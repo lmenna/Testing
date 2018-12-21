@@ -170,6 +170,30 @@ function forEachAnonymousTest(aNumbersArray) {
    });
  }
 
+ /* multipleParameter
+  * desc: Use the ... ellipsis notation to handle an arbitrary number of parameters in a function.
+  */
+  function multipleParameters(requiredParam, ...manyParams) {
+    let returnAry = [ requiredParam ];
+    return(returnAry.concat(manyParams));
+  }
+
+/* spreadTheArray
+ * desc: Another use for the ... ellipsis notation is to take an array and spread it out definiton
+ *       its individual values.
+ */
+function spreadTheArray(paramFromValue, p0, p1, p2, p3) {
+
+    return({
+      paramFromValue,
+      p0,
+      p1,
+      p2,
+      p3
+    });
+}
+
+
 export { defaultParametersMultiply, templateLiterals, multiLineStrings,
   scopeTestVar, scopeTestLet, PersonClass, Employee, forEachTest, forEachAnonymousTest,
-  mapArray01, filterArray01, objectLiterals }
+  mapArray01, filterArray01, objectLiterals, multipleParameters, spreadTheArray }

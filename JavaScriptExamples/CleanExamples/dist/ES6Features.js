@@ -13,6 +13,8 @@ exports.forEachAnonymousTest = forEachAnonymousTest;
 exports.mapArray01 = mapArray01;
 exports.filterArray01 = filterArray01;
 exports.objectLiterals = objectLiterals;
+exports.multipleParameters = multipleParameters;
+exports.spreadTheArray = spreadTheArray;
 exports.Employee = exports.PersonClass = void 0;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -236,6 +238,35 @@ function objectLiterals(title, author, genre) {
     title: title,
     author: author,
     genre: genre
+  };
+}
+/* multipleParameter
+ * desc: Use the ... ellipsis notation to handle an arbitrary number of parameters in a function.
+ */
+
+
+function multipleParameters(requiredParam) {
+  var returnAry = [requiredParam];
+
+  for (var _len = arguments.length, manyParams = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    manyParams[_key - 1] = arguments[_key];
+  }
+
+  return returnAry.concat(manyParams);
+}
+/* spreadTheArray
+ * desc: Another use for the ... ellipsis notation is to take an array and spread it out definiton
+ *       its individual values.
+ */
+
+
+function spreadTheArray(paramFromValue, p0, p1, p2, p3) {
+  return {
+    paramFromValue: paramFromValue,
+    p0: p0,
+    p1: p1,
+    p2: p2,
+    p3: p3
   };
 }
 //# sourceMappingURL=ES6Features.js.map

@@ -21,6 +21,7 @@
     "@babel/register": "^7.0.0",
     "chai": "^4.2.0",
     "lite-server": "^2.4.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "pug": "^2.0.3"
   }
 }

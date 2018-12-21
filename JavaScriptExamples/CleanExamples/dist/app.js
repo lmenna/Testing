@@ -6,6 +6,10 @@ var _BigNumbers = require("./BigNumbers");
 
 var _ES6Features = require("./ES6Features");
 
+var _lexicalScoping = require("./lexicalScoping");
+
+var _setTimeout = require("./setTimeout");
+
 function runClosureExample() {
   console.log("Closure Example");
   var p = new _Closure.PersonClosure("Luigi");
@@ -96,7 +100,29 @@ function runES6Features() {
   };
   console.log("Object is:", sampleObj);
   console.log("Pull out a and c.  a:", sampleObj.a, " c:", sampleObj.c);
+  console.log("Call multipleParameters:", (0, _ES6Features.multipleParameters)("required", "optional1", "optional2", "optional3", 1, 2, Math.random()));
+  var arrayToSpread = ["AryV0", "AryV1", "AryV2"];
+  console.log("Call spreadTheArray:", _ES6Features.spreadTheArray.apply(void 0, ["requiredParam"].concat(arrayToSpread)));
 }
 
-runES6Features();
+function runLexicalScope() {
+  console.log("simpleHoistingExample:", (0, _lexicalScoping.simpleHoistingExample)());
+  var l = new _lexicalScoping.LexicalScoping();
+  console.log("Instance of LexicalScoping:", l);
+  console.log("l.getVar:", l.getVar());
+  console.log("l.getVarArrow:", l.getVarArrow());
+  console.log("l.getValHidden:", l.getVarFromHidden());
+  console.log("getVarFromHiddenArrow:", l.getVarFromHiddenArrow());
+}
+
+function runsetTimeout() {
+  (0, _setTimeout.setTimeout01)();
+  (0, _setTimeout.setTimeout02)();
+} // Call the runner function here.  Uncomment the ones you'd like to test.
+// runES6Features();
+//runLexicalScope();
+//runES6Features();
+
+
+runsetTimeout();
 //# sourceMappingURL=app.js.map

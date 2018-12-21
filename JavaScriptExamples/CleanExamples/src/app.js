@@ -2,7 +2,9 @@ import { PersonClosure } from "./Closure";
 import { aBigOne, addOne, aBigOneBN, addOneBN } from "./BigNumbers";
 import { defaultParametersMultiply, templateLiterals, multiLineStrings,
   scopeTestVar, scopeTestLet, PersonClass, Employee, forEachTest, forEachAnonymousTest,
-   mapArray01, filterArray01, objectLiterals } from "./ES6Features";
+   mapArray01, filterArray01, objectLiterals, multipleParameters, spreadTheArray } from "./ES6Features";
+import { LexicalScoping, simpleHoistingExample } from "./lexicalScoping";
+import { setTimeout01, setTimeout02 } from "./setTimeout";
 
 function runClosureExample() {
   console.log("Closure Example");
@@ -95,6 +97,30 @@ function runES6Features() {
       c: "this is c"};
     console.log("Object is:", sampleObj);
     console.log("Pull out a and c.  a:", sampleObj.a, " c:", sampleObj.c);
+    console.log("Call multipleParameters:", multipleParameters("required"
+        , "optional1", "optional2", "optional3", 1, 2, Math.random()));
+    let arrayToSpread = ["AryV0", "AryV1", "AryV2"];
+    console.log("Call spreadTheArray:", spreadTheArray("requiredParam", ...arrayToSpread));
 }
 
-runES6Features();
+function runLexicalScope() {
+
+  console.log("simpleHoistingExample:", simpleHoistingExample());
+  let l = new LexicalScoping();
+  console.log("Instance of LexicalScoping:", l);
+  console.log("l.getVar:", l.getVar());
+  console.log("l.getVarArrow:", l.getVarArrow());
+  console.log("l.getValHidden:", l.getVarFromHidden());
+  console.log("getVarFromHiddenArrow:", l.getVarFromHiddenArrow());
+}
+
+function runsetTimeout() {
+  setTimeout01();
+  setTimeout02();
+}
+
+// Call the runner function here.  Uncomment the ones you'd like to test.
+// runES6Features();
+//runLexicalScope();
+//runES6Features();
+runsetTimeout();
