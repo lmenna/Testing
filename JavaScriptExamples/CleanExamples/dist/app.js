@@ -10,6 +10,8 @@ var _lexicalScoping = require("./lexicalScoping");
 
 var _setTimeout = require("./setTimeout");
 
+var _classesAndThis = require("./classesAndThis");
+
 function runClosureExample() {
   console.log("Closure Example");
   var p = new _Closure.PersonClosure("Luigi");
@@ -27,10 +29,9 @@ function runBigNumberExample() {
   aNumber = (0, _BigNumbers.addOne)(aNumber);
   outputBigNumber(aNumber);
   var aBN = (0, _BigNumbers.aBigOneBN)();
-  logBN(aBN);
+  outputBN(aBN);
   aBN = (0, _BigNumbers.addOneBN)(aBN);
   outputBN(aBN);
-  var convertBN = convertBNtoBigNumber(aNumber);
 }
 
 function outputBigNumber(aNumber) {
@@ -114,15 +115,76 @@ function runLexicalScope() {
   console.log("l.getValHidden:", l.getVarFromHidden());
   console.log("getVarFromHiddenArrow:", l.getVarFromHiddenArrow());
 }
+/* runsetTimeout
+ * desc: Example showing how executing code takes precendence over something placed immediately on the event
+ *       queue (placed on the event queue with a timeout of 0).
+ */
+
 
 function runsetTimeout() {
   (0, _setTimeout.setTimeout01)();
   (0, _setTimeout.setTimeout02)();
+}
+/* runclassesAndThis
+ * desc: Examples showing how classes, this and prototypes work.
+ */
+
+
+function runclassesAndThis() {
+  (0, _classesAndThis.testObjectCreate)();
+  console.log("Create an animal where methods are set in the animal function body");
+  var leo1 = (0, _classesAndThis.Animal_V1)("Leo the Lion", 100);
+  console.log("leo v1:", leo1);
+  console.log("leo.eat(5) v1:");
+  leo1.eat(5);
+  console.log("Create an animal where methods are picked up using Object.create()");
+  var leo2 = (0, _classesAndThis.Animal_V2)("Leo the Lion", 100);
+  console.log("leo v2:", leo2);
+  console.log("leo.eat(5) v2:");
+  leo2.eat(5); // Create an Animal with methods in the function's prototype object.
+
+  console.log("Animal created with methods in the function's prototype object");
+  console.log("Remeber that every function automatically has a prototype object contained within it.");
+  var leo3 = (0, _classesAndThis.Animal_V3)("Leo V3", 300);
+  console.log("leo3:", leo3);
+  console.log("leo3.eat(5).  Note: Animal_V3 has a eat method in its prototype.");
+  console.log("Since it was created using Object.create(Animal_V3.prototype) the eat() method will get picked up in the prototype.");
+  leo3.eat(5);
+  console.log("Animal_V3.prototype:", _classesAndThis.Animal_V3.prototype); // Create animals by calling the function using new.
+  // new will call Object.create() automatically creating the "this" object which will
+  // delegate to the object's prototype.
+
+  console.log("Create Animals calling Animal function using new.");
+  console.log("Calling with new will invoke Object.create() automatically creating the \"this\" object.");
+  var leoNew = new _classesAndThis.AnimalWithNew("New Leo", 1000); // Put "new" in front of function invocation.
+
+  console.log("leoNew:", leoNew);
+  console.log("leoNew.eat(6)");
+  leoNew.eat(6);
+
+  for (var key in leoNew) {
+    console.log("Key: ".concat(key, ".  Value: ").concat(leoNew[key]));
+  } // We will now use the class keyword to reproduce what was done above using a modern technique.
+
+
+  console.log("We will now use the class keyword to reproduce what was done above using a modern technique.");
+  var leoObj = new _classesAndThis.AnimalAsClass("Leo with Class", 2000);
+  console.log("leoObj:", leoObj);
+  console.log("leoObj.eat(7):");
+  leoObj.eat(7);
+
+  for (var _key in leoObj) {
+    console.log("Key: ".concat(_key, ".  Value: ").concat(leoObj[_key]));
+  }
+
+  console.log("anAry prototype:", Object.getPrototypeOf(leoObj));
 } // Call the runner function here.  Uncomment the ones you'd like to test.
 // runES6Features();
 //runLexicalScope();
 //runES6Features();
+//runsetTimeout();
+//runBigNumberExample();
 
 
-runsetTimeout();
+runclassesAndThis();
 //# sourceMappingURL=app.js.map
