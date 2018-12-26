@@ -1,18 +1,18 @@
 "use strict";
-/* Animal_V1
- * desc: Case where we create an Animal object using a function containing variables and functions.
- *       In this case every Animal instance will contain copies of the functions eat, sleep and play.
- *       This is wasteful since the functions can be shared.
+/* whatIsThis
+ * desc: See what the value of this is in a function
  */
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.whatIsThis = whatIsThis;
 exports.testObjectCreate = testObjectCreate;
 exports.Animal_V1 = Animal_V1;
 exports.Animal_V2 = Animal_V2;
 exports.Animal_V3 = Animal_V3;
 exports.AnimalWithNew = AnimalWithNew;
+exports.leaveOutNew = leaveOutNew;
 exports.AnimalAsClass = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20,6 +20,57 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function whatIsThis(aParam) {
+  console.log("this at the function level START:", this);
+  var obj = {
+    firstName: "Luigi",
+    id: 10,
+    displayThis: function displayThis() {
+      console.log("this inside the obj:", this);
+      console.log("this.firstName inside the obj:", this.firstName);
+    }
+  };
+  obj.displayThis();
+  console.log("this at the function level END:", this);
+}
+/* leaveOutNew
+ * desc: Classes are just functions in JavaScript.  Try to call the function directly without
+ *       using new.
+ */
+
+
+function leaveOutNew() {
+  var Person =
+  /*#__PURE__*/
+  function () {
+    function Person(name, age) {
+      _classCallCheck(this, Person);
+
+      this.name = name;
+      this.age = age;
+    }
+
+    _createClass(Person, [{
+      key: "sayHello",
+      value: function sayHello() {
+        return "Hello " + this.name;
+      }
+    }]);
+
+    return Person;
+  }();
+
+  var p = new Person("Luigi", 11);
+  console.log("p:", p);
+  var p2 = Person("Luigi2", 22);
+}
+/* Animal_V1
+ * desc: Case where we create an Animal object using a function containing variables and functions.
+ *       In this case every Animal instance will contain copies of the functions eat, sleep and play.
+ *       This is wasteful since the functions can be shared.
+ */
+
 
 function Animal_V1(name, energy) {
   var animal = {}; // Member variables
@@ -165,6 +216,11 @@ AnimalWithNew.prototype.play = function (length) {
   console.log("".concat(this.name, " is playing."));
   this.energy -= length;
 };
+/* AnimalAsClass
+ * desc: This is the modern way to create a class in JavaScript.  The previous examples are valuable
+ *       since they show how the class actually works.
+ */
+
 
 var AnimalAsClass =
 /*#__PURE__*/

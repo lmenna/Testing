@@ -31,7 +31,12 @@ var runSets = function runSets() {
   (0, _sets.runSetCategories)();
   (0, _sets.runSetDelete)();
   (0, _sets.manualIterate)();
-  (0, _sets.ecma6Iterate)();
+  (0, _sets.ecma6Iterate)(); //let arrayWithDups = [1,2,3,4,4,5,6,1,2,3,7,8,9];
+  //let arrayWithDups = [];
+
+  var arrayWithDups = new Array(20);
+  console.log("Input Array:", arrayWithDups);
+  console.log("removeDuplicatesFromArray:", (0, _sets.removeDuplicatesFromArray)(arrayWithDups));
 }; // runLiskedList();
 
 

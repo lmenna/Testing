@@ -1,5 +1,46 @@
 "use strict";
 
+/* whatIsThis
+ * desc: See what the value of this is in a function
+ */
+function whatIsThis(aParam) {
+
+  console.log("this at the function level START:", this);
+  let obj = {
+    firstName: "Luigi",
+    id: 10,
+    displayThis: function() {
+      console.log("this inside the obj:", this);
+      console.log("this.firstName inside the obj:", this.firstName);
+    }
+  }
+  obj.displayThis();
+  console.log("this at the function level END:", this);
+}
+
+/* leaveOutNew
+ * desc: Classes are just functions in JavaScript.  Try to call the function directly without
+ *       using new.
+ */
+ function leaveOutNew() {
+
+    class Person {
+      constructor(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      sayHello() {
+        return("Hello " + this.name);
+      }
+    }
+
+    var p = new Person("Luigi", 11);
+    console.log("p:", p);
+
+    var p2 = Person("Luigi2", 22);
+ }
+
+
 /* Animal_V1
  * desc: Case where we create an Animal object using a function containing variables and functions.
  *       In this case every Animal instance will contain copies of the functions eat, sleep and play.
@@ -182,4 +223,5 @@ class AnimalAsClass {
   }
 }
 
-export { testObjectCreate, Animal_V1, Animal_V2, Animal_V3, AnimalWithNew, AnimalAsClass }
+export { whatIsThis, testObjectCreate, Animal_V1, Animal_V2, Animal_V3, AnimalWithNew, AnimalAsClass,
+  leaveOutNew }

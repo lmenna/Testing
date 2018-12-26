@@ -7,10 +7,13 @@ import { defaultParametersMultiply, templateLiterals, multiLineStrings,
   mapArray01, filterArray01, objectLiterals, multipleParameters, spreadTheArray } from "./ES6Features";
 import { LexicalScoping, simpleHoistingExample } from "./lexicalScoping";
 import { setTimeout01, setTimeout02 } from "./setTimeout";
-import { testObjectCreate, Animal_V1, Animal_V2, Animal_V3, AnimalWithNew, AnimalAsClass } from "./classesAndThis";
+import { whatIsThis, testObjectCreate, Animal_V1, Animal_V2, Animal_V3, AnimalWithNew, AnimalAsClass,
+  leaveOutNew } from "./classesAndThis";
+import { arrayNewTesting } from "./Arrays";
+import { PersonAsClass, PersonAsFunction } from "./babelClassGen";
 
 function runClosureExample() {
-  console.log("Closure Example");
+  console.log("\n--->> runClosureExample");
   var p = new PersonClosure("Luigi");
   console.log("Person p:", p);
   console.log("Person p._name:", p._name);
@@ -22,6 +25,7 @@ function runClosureExample() {
 
 function runBigNumberExample() {
 
+  console.log("\n--->> runBigNumberExample");
   console.log("BigNumber Example");
   let aNumber = aBigOne();
   outputBigNumber(aNumber);
@@ -48,6 +52,7 @@ function outputBN(aNumber) {
 
 function runES6Features() {
 
+  console.log("\n--->> runES6Features");
   console.log("ES6 Default parameters");
   console.log("Call multiply with no parameters:", defaultParametersMultiply());
   // Note: It is best to put undefined in for missing parameters
@@ -107,6 +112,7 @@ function runES6Features() {
 
 function runLexicalScope() {
 
+  console.log("\n--->> runLexicalScope");
   console.log("simpleHoistingExample:", simpleHoistingExample());
   let l = new LexicalScoping();
   console.log("Instance of LexicalScoping:", l);
@@ -121,6 +127,7 @@ function runLexicalScope() {
  *       queue (placed on the event queue with a timeout of 0).
  */
 function runsetTimeout() {
+  console.log("\n--->> runsetTimeout");
   setTimeout01();
   setTimeout02();
 }
@@ -130,6 +137,9 @@ function runsetTimeout() {
  */
 function runclassesAndThis() {
 
+  console.log("\n--->> runclassesAndThis");
+  console.log("What is this?");
+  whatIsThis(1);
   testObjectCreate();
   console.log("Create an animal where methods are set in the animal function body");
   const leo1 = Animal_V1("Leo the Lion", 100);
@@ -170,11 +180,32 @@ function runclassesAndThis() {
   console.log("leoObj:", leoObj);
   console.log("leoObj.eat(7):");
   leoObj.eat(7);
-  // When using a class the functions in the prototype are displayed when using for in. 
+  // When using a class the functions in the prototype are displayed when using for in.
   for (let key in leoObj) {
     console.log(`Key: ${key}.  Value: ${leoObj[key]}`);
   }
   console.log("anAry prototype:", Object.getPrototypeOf(leoObj));
+  try {
+    leaveOutNew();
+  }
+  catch(err) {
+    console.log("Got an error because we called a class as a function without using new.\n", err);
+  }
+}
+
+function runArrayTests() {
+
+  console.log("\n--->> runArrayTests");
+  arrayNewTesting();
+}
+
+function runBabelGenTest() {
+
+  console.log("\n--->> runBabelGenTest");
+  console.log("let p1 = new PersonAsFunction()")
+  let p1 = new PersonAsFunction();
+  console.log("let p2 = new PersonAsFunction(\"Luigi\", 21)")
+  let p2 = new PersonAsFunction("Luigi", 21);
 }
 
 // Call the runner function here.  Uncomment the ones you'd like to test.
@@ -184,3 +215,5 @@ function runclassesAndThis() {
 //runsetTimeout();
 //runBigNumberExample();
 runclassesAndThis();
+runArrayTests();
+runBabelGenTest();

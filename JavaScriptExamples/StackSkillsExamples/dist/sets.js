@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ecma6Iterate = exports.manualIterate = exports.runSetDelete = exports.runSetCategories = void 0;
+exports.removeDuplicatesFromArray = exports.ecma6Iterate = exports.manualIterate = exports.runSetDelete = exports.runSetCategories = void 0;
 
 /* Coding examples from the Stackskill JavaScript online course
  * https://stackskills.com/courses/179647/lectures/2700083
@@ -91,6 +91,19 @@ var ecma6Iterate = function ecma6Iterate() {
     }
   }
 };
+/* removeDuplicatesFromArray
+ * desc: Uses a set to remove duplicate items from an array
+ * param: Array to remove duplicates from.
+ * return: An array matching the input but with duplicates removed.
+ */
+
 
 exports.ecma6Iterate = ecma6Iterate;
+
+var removeDuplicatesFromArray = function removeDuplicatesFromArray(AnArray) {
+  var set = new Set(AnArray);
+  return Array.from(set);
+};
+
+exports.removeDuplicatesFromArray = removeDuplicatesFromArray;
 //# sourceMappingURL=sets.js.map

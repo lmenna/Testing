@@ -1,5 +1,5 @@
 import {LinkedList} from "./linkedList";
-import {runSetCategories, runSetDelete, manualIterate, ecma6Iterate} from "./sets";
+import {runSetCategories, runSetDelete, manualIterate, ecma6Iterate, removeDuplicatesFromArray} from "./sets";
 
 var runLiskedList = () => {
   var l = new LinkedList;
@@ -30,6 +30,11 @@ var runSets = () => {
   runSetDelete();
   manualIterate();
   ecma6Iterate();
+  //let arrayWithDups = [1,2,3,4,4,5,6,1,2,3,7,8,9];
+  //let arrayWithDups = [];
+  let arrayWithDups = new Array(20);
+  console.log("Input Array:", arrayWithDups);
+  console.log("removeDuplicatesFromArray:", removeDuplicatesFromArray(arrayWithDups));
 }
 
 // runLiskedList();

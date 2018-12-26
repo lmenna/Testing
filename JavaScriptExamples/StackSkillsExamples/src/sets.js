@@ -55,4 +55,14 @@ var ecma6Iterate = () => {
   }
 }
 
-export {runSetCategories, runSetDelete, manualIterate, ecma6Iterate};
+/* removeDuplicatesFromArray
+ * desc: Uses a set to remove duplicate items from an array
+ * param: Array to remove duplicates from.
+ * return: An array matching the input but with duplicates removed.
+ */
+var removeDuplicatesFromArray = (AnArray) => {
+  let set = new Set(AnArray);
+  return(Array.from(set));
+}
+
+export {runSetCategories, runSetDelete, manualIterate, ecma6Iterate, removeDuplicatesFromArray};

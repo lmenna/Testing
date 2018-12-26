@@ -12,8 +12,12 @@ var _setTimeout = require("./setTimeout");
 
 var _classesAndThis = require("./classesAndThis");
 
+var _Arrays = require("./Arrays");
+
+var _babelClassGen = require("./babelClassGen");
+
 function runClosureExample() {
-  console.log("Closure Example");
+  console.log("\n--->> runClosureExample");
   var p = new _Closure.PersonClosure("Luigi");
   console.log("Person p:", p);
   console.log("Person p._name:", p._name);
@@ -23,6 +27,7 @@ function runClosureExample() {
 }
 
 function runBigNumberExample() {
+  console.log("\n--->> runBigNumberExample");
   console.log("BigNumber Example");
   var aNumber = (0, _BigNumbers.aBigOne)();
   outputBigNumber(aNumber);
@@ -48,6 +53,7 @@ function outputBN(aNumber) {
 }
 
 function runES6Features() {
+  console.log("\n--->> runES6Features");
   console.log("ES6 Default parameters");
   console.log("Call multiply with no parameters:", (0, _ES6Features.defaultParametersMultiply)()); // Note: It is best to put undefined in for missing parameters
 
@@ -107,6 +113,7 @@ function runES6Features() {
 }
 
 function runLexicalScope() {
+  console.log("\n--->> runLexicalScope");
   console.log("simpleHoistingExample:", (0, _lexicalScoping.simpleHoistingExample)());
   var l = new _lexicalScoping.LexicalScoping();
   console.log("Instance of LexicalScoping:", l);
@@ -122,6 +129,7 @@ function runLexicalScope() {
 
 
 function runsetTimeout() {
+  console.log("\n--->> runsetTimeout");
   (0, _setTimeout.setTimeout01)();
   (0, _setTimeout.setTimeout02)();
 }
@@ -131,6 +139,9 @@ function runsetTimeout() {
 
 
 function runclassesAndThis() {
+  console.log("\n--->> runclassesAndThis");
+  console.log("What is this?");
+  (0, _classesAndThis.whatIsThis)(1);
   (0, _classesAndThis.testObjectCreate)();
   console.log("Create an animal where methods are set in the animal function body");
   var leo1 = (0, _classesAndThis.Animal_V1)("Leo the Lion", 100);
@@ -160,7 +171,8 @@ function runclassesAndThis() {
 
   console.log("leoNew:", leoNew);
   console.log("leoNew.eat(6)");
-  leoNew.eat(6);
+  leoNew.eat(6); // Note how this iterates over the prototype chain showing all of the functions
+  // associated with the prototype.
 
   for (var key in leoNew) {
     console.log("Key: ".concat(key, ".  Value: ").concat(leoNew[key]));
@@ -171,13 +183,32 @@ function runclassesAndThis() {
   var leoObj = new _classesAndThis.AnimalAsClass("Leo with Class", 2000);
   console.log("leoObj:", leoObj);
   console.log("leoObj.eat(7):");
-  leoObj.eat(7);
+  leoObj.eat(7); // When using a class the functions in the prototype are displayed when using for in.
 
   for (var _key in leoObj) {
     console.log("Key: ".concat(_key, ".  Value: ").concat(leoObj[_key]));
   }
 
   console.log("anAry prototype:", Object.getPrototypeOf(leoObj));
+
+  try {
+    (0, _classesAndThis.leaveOutNew)();
+  } catch (err) {
+    console.log("Got an error because we called a class as a function without using new.\n", err);
+  }
+}
+
+function runArrayTests() {
+  console.log("\n--->> runArrayTests");
+  (0, _Arrays.arrayNewTesting)();
+}
+
+function runBabelGenTest() {
+  console.log("\n--->> runBabelGenTest");
+  console.log("let p1 = new PersonAsFunction()");
+  var p1 = new _babelClassGen.PersonAsFunction();
+  console.log("let p2 = new PersonAsFunction(\"Luigi\", 21)");
+  var p2 = new _babelClassGen.PersonAsFunction("Luigi", 21);
 } // Call the runner function here.  Uncomment the ones you'd like to test.
 // runES6Features();
 //runLexicalScope();
@@ -187,4 +218,6 @@ function runclassesAndThis() {
 
 
 runclassesAndThis();
+runArrayTests();
+runBabelGenTest();
 //# sourceMappingURL=app.js.map
