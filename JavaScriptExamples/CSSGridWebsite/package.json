@@ -1,5 +1,5 @@
 {
-  "name": "AsyncAwait",
+  "name": "WebsiteFromScript01",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,11 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": ". /users/yglm/Documents/Development/PrivateScripts/bin/SetMongoEnv.sh && mocha --require @babel/register",
-    "start": "node bin/dev",
-    "clean": "rm -rf dist",
-    "build": "npm run clean && mkdir dist && babel src -s -d dist",
-    "prod": "npm run build && node bin/prod"
+    "test": "mocha --require @babel/register",
+    "start": "lite-server",
+    "sass": "node-sass -w scss/ -o dist/css/ --recursive"
   },
   "keywords": [],
   "author": "",
@@ -23,9 +21,9 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/register": "^7.0.0",
     "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
+    "lite-server": "^2.4.0",
     "mocha": "^5.2.0",
-    "mongodb": "^3.1.10",
-    "xmlhttprequest": "^1.8.0"
+    "node-sass": "^4.11.0",
+    "pug": "^2.0.3"
   }
 }

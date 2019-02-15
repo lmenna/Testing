@@ -1,6 +1,14 @@
 require("@babel/polyfill");
 import {getMostRecentETHData} from "./utils/dbUtils";
 import {timeoutResolveSuccess, timeoutRejectError, slowAddition} from "./utils/timers";
+import {getExchangeData} from "./utils/getCryptoData";
+
+const poloniexURL = "https://poloniex.com/public?command=returnTicker"; 
+const coinbaseURL = "https://api.pro.coinbase.com/products"; 
+const bittrexURLAll = "https://bittrex.com/api/v1.1/public/getmarketsummaries";
+const hitbtcURL = "https://api.hitbtc.com/api/2/public/ticker";
+const yobitBaseURL = "https://yobit.net/api/3/ticker/"
+
 
 var runAsyncTest01 = async () => {
 
@@ -53,7 +61,7 @@ var runTimerAsync01 = async () => {
 }
 
 /* runTimerAsync02
- * desc: Uses setTimeout to produce a delay to test async await code.  Returns failure.
+ * desc: Test a async failure.  Uses setTimeout to produce a delay to test async await code.  Returns failure.
  */
 var runTimerAsync02 = async () => {
 
@@ -80,8 +88,52 @@ var runSlowMath = async () => {
   }
 }
 
+/* runMarketDataTest()
+ * desc: Queries various exchanges for market data.  First it does this sequentially using
+ *       await on each request.  Next it does this in parallel awaiting on all request simultaneously
+ */
+var runMarketDataTest = async() => {
+
+  console.log("Begin: runMarketDataTest");
+  const startAwait = Date.now();
+
+  try {
+    let polo = await getExchangeData(poloniexURL);
+    let poloTime = Date.now();
+    let cb = await getExchangeData(coinbaseURL);
+    let cbTime = Date.now();
+    let bt = await getExchangeData(bittrexURLAll);
+    let btTime = Date.now();
+    let hb = await getExchangeData(hitbtcURL);
+    let hbTime = Date.now();
+    console.log(`Polo: ${poloTime-startAwait}  CB: ${cbTime-poloTime}  BT: ${btTime-cbTime}  HB: ${hbTime-btTime}`);
+    console.log(`Time for awaiting each exchange seperately: ${hbTime - startAwait}`);
+  }
+  catch(err) {
+    console.log(`Error getting data sequentially: ${err}`);
+  }
+  const endAwait = Date.now();
+
+  const startAwaitAll = Date.now();
+  console.log("Get all exchange data simultaneously.");
+  try {
+    let polo2 = getExchangeData(poloniexURL);
+    let cb2 = getExchangeData(coinbaseURL);
+    let bt2 = getExchangeData(bittrexURLAll);
+    let hb2 = getExchangeData(hitbtcURL);
+    await Promise.all([polo2, cb2, bt2, hb2]);
+  }
+  catch(err) {
+    console.log(`Error getting data simultaneously: ${err}`);
+  }
+  const endAwaitAll = Date.now();
+  console.log(`Time for awaiting all exchanges together: ${endAwaitAll - startAwaitAll}`);  
+  console.log("End: runMarketDataTest");
+}
+
 //runAsyncTest01();
 //runAsyncTest02();
-runTimerAsync01();
-runTimerAsync02();
-runSlowMath();
+// runTimerAsync01();
+// runTimerAsync02();
+// runSlowMath();
+setInterval(runMarketDataTest, 10000);

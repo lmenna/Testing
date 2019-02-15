@@ -1,3 +1,8 @@
+/* app.js
+ * desc: Used to launch various JavaScript examples.  Each function in this file will run code
+ *       that shows how a specific JavaScript feature works.  Feel free to add more examples
+ *       and to run only those examples that are interesting to you.
+ */
 "use strict";
 
 var _Closure = require("./Closure");
@@ -16,6 +21,35 @@ var _Arrays = require("./Arrays");
 
 var _babelClassGen = require("./babelClassGen");
 
+var _AsyncAwait = require("./AsyncAwait.js");
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+require("@babel/polyfill");
+
+// Utility to log with a timestamp.
+var start = Date.now();
+
+var log = function log(msg) {
+  console.log("     -->> ".concat(Date.now() - start, " ").concat(msg));
+};
+/* runClosureExample()
+ * desc: A closure is a function with an internal state that perisists after the function
+ *       is called.  This function is not a closure, but it runs the function which are.
+ *       The closure functions are located in Closure.js  
+ */
+
+
 function runClosureExample() {
   console.log("\n--->> runClosureExample");
   var p = new _Closure.PersonClosure("Luigi");
@@ -25,6 +59,41 @@ function runClosureExample() {
   console.log("Person p.functionIsVisibleOutside:", p.functionIsVisibleOutside());
   console.log("Person p.canYouSeeMe is undefined use p.nowICanSeeYou:", p.nowICanSeeYou());
 }
+
+function runClosureImplementingACounter() {
+  console.log("\n--->> runClosureImplementingACounter - Another closure example.");
+  console.log("Create one counter closure.");
+  console.log("The counter closure has one variable in the PLSRD - Persistent Lexically Scoped Reference Data");
+  console.log("This variable is internally called counter.");
+  console.log("It can only be accesses using the functions returned by createCounters");
+
+  var _createCounters = (0, _Closure.createCounters)(),
+      _createCounters2 = _slicedToArray(_createCounters, 2),
+      incrementCounter = _createCounters2[0],
+      decrementCounter = _createCounters2[1];
+
+  incrementCounter();
+  incrementCounter();
+  incrementCounter();
+  decrementCounter();
+  console.log("Create another counter closure.");
+  console.log("It is expected that this new closure will have its own counter, starting back at 0.");
+
+  var _createCounters3 = (0, _Closure.createCounters)();
+
+  var _createCounters4 = _slicedToArray(_createCounters3, 2);
+
+  incrementCounter = _createCounters4[0];
+  decrementCounter = _createCounters4[1];
+  incrementCounter();
+  incrementCounter();
+  incrementCounter();
+  decrementCounter();
+}
+/* runBigNumberExample()
+ * desc: 
+ */
+
 
 function runBigNumberExample() {
   console.log("\n--->> runBigNumberExample");
@@ -38,6 +107,10 @@ function runBigNumberExample() {
   aBN = (0, _BigNumbers.addOneBN)(aBN);
   outputBN(aBN);
 }
+/* outputBigNumber()
+ * desc: 
+ */
+
 
 function outputBigNumber(aNumber) {
   console.log("BigNumber:", aNumber);
@@ -51,6 +124,10 @@ function outputBN(aNumber) {
   console.log("BN:", aNumber);
   console.log("BN.toString():", aNumber.toString());
 }
+/* runES6Features()
+ * desc: 
+ */
+
 
 function runES6Features() {
   console.log("\n--->> runES6Features");
@@ -209,15 +286,168 @@ function runBabelGenTest() {
   var p1 = new _babelClassGen.PersonAsFunction();
   console.log("let p2 = new PersonAsFunction(\"Luigi\", 21)");
   var p2 = new _babelClassGen.PersonAsFunction("Luigi", 21);
+}
+/* runAsyncAwaitBlocker
+ * desc: Shows how promises can still result in calls that are blocking and run sequentially.
+ */
+
+
+function runAsyncAwaitBlocker() {
+  return _runAsyncAwaitBlocker.apply(this, arguments);
+}
+/* runAsyncAwaitNonBlocker
+ * desc: Shows how promises can still result in calls that are blocking and run sequentially.
+ */
+
+
+function _runAsyncAwaitBlocker() {
+  _runAsyncAwaitBlocker = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee() {
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            log("Start: runAsyncAwaitBlocker");
+            log("Synchronous 1");
+            (0, _AsyncAwait.codeBlocker)("CB1").then(log);
+            log("Synchronous 2");
+            (0, _AsyncAwait.codeBlocker)("CB2").then(log);
+            log("Synchronous 3"); // log("01 await await three tasks in sequence.");
+            // let startTime = Date.now();
+            // let task1 = await myPromiseStillBlocking("task1");
+            // log(`02 First task is done.  Result: ${task1}`);
+            // let task2 = await myPromiseStillBlocking("task2");
+            // log(`03 Second task is done.  Result: ${task2}`);
+            // let task3 = await myPromiseStillBlocking("task3");
+            // log(`04 Third task is done.  Result: ${task3}`);
+            // let task4 = await myPromiseStillBlocking("task4");
+            // log(`05 Fourth task is done.  Result: ${task4}`);
+            // let task5 = await myPromiseStillBlocking("task5");
+            // let endTime = Date.now();
+            // log(`06 Fifth task is done.  Result: ${task5}`);
+            // console.log(`${endTime-startTime} msec. Total time for 5 tasks run synchronously.`);
+            // console.log("Now run the tasks simultameously.");
+            // startTime = Date.now();
+            // const [task1p, task2p, task3p, task4p, task5p] = await Promise.all([
+            //   myPromiseInParallel("task1p"),
+            //   myPromiseInParallel("task2p"),
+            //   myPromiseInParallel("task3p"),
+            //   myPromiseInParallel("task4p"),
+            //   myPromiseInParallel("task5p")
+            // ]);
+            // endTime = Date.now();
+            // console.log(`${endTime-startTime} msec. Total time for 3 tasks run simultaneously.`); 
+
+            log("End: runAsyncAwaitBlocker");
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+  return _runAsyncAwaitBlocker.apply(this, arguments);
+}
+
+function runAsyncAwaitNonBlocker() {
+  return _runAsyncAwaitNonBlocker.apply(this, arguments);
+}
+/* runAsyncAwaitPromiseError
+ * desc: Shows the correct way to handle errors from functions that return promises.
+ */
+
+
+function _runAsyncAwaitNonBlocker() {
+  _runAsyncAwaitNonBlocker = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee2() {
+    var a, b;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            log("Start: runAsyncAwaitNonBlocker");
+            log("Synchronous 1");
+            a = (0, _AsyncAwait.codeNonBlocker)("CnB1");
+            log("Synchronous 2");
+            b = (0, _AsyncAwait.codeNonBlocker)("CnB2");
+            log("Synchronous 3");
+            _context2.next = 8;
+            return Promise.all([a, b]);
+
+          case 8:
+            log("End: runAsyncAwaitNonBlocker");
+
+          case 9:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+  return _runAsyncAwaitNonBlocker.apply(this, arguments);
+}
+
+function runAsyncAwaitPromiseError() {
+  return _runAsyncAwaitPromiseError.apply(this, arguments);
 } // Call the runner function here.  Uncomment the ones you'd like to test.
-// runES6Features();
+
+
+function _runAsyncAwaitPromiseError() {
+  _runAsyncAwaitPromiseError = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee3() {
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            log("Start: runIt");
+            log("01 await myPromiseError");
+            _context3.prev = 2;
+            _context3.t0 = console;
+            _context3.t1 = "Result = ";
+            _context3.next = 7;
+            return (0, _AsyncAwait.myPromiseError)();
+
+          case 7:
+            _context3.t2 = _context3.sent;
+            _context3.t3 = _context3.t1.concat.call(_context3.t1, _context3.t2);
+
+            _context3.t0.log.call(_context3.t0, _context3.t3);
+
+            _context3.next = 15;
+            break;
+
+          case 12:
+            _context3.prev = 12;
+            _context3.t4 = _context3["catch"](2);
+            console.log("Caught an error: ", _context3.t4);
+
+          case 15:
+            log("End: runAsyncAwaitPromiseError");
+
+          case 16:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, this, [[2, 12]]);
+  }));
+  return _runAsyncAwaitPromiseError.apply(this, arguments);
+}
+
+runClosureExample();
+runClosureImplementingACounter(); //runES6Features();
 //runLexicalScope();
 //runES6Features();
 //runsetTimeout();
 //runBigNumberExample();
-
-
-runclassesAndThis();
-runArrayTests();
-runBabelGenTest();
+//runclassesAndThis();
+//runArrayTests();
+//runBabelGenTest();
+//runAsyncAwaitBlocker();
+//runAsyncAwaitNonBlocker();
+//runAsyncAwaitPromiseError();
 //# sourceMappingURL=app.js.map

@@ -1,0 +1,16 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.power = power;
+exports.powerAny = powerAny;
+
+function power(x, y) {
+  return Math.pow(x, y);
+}
+
+function powerAny(x, y) {
+  return Math.pow(x, y);
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy9tYXRodXRpbHMudHMiXSwibmFtZXMiOlsicG93ZXIiLCJ4IiwieSIsIk1hdGgiLCJwb3ciLCJwb3dlckFueSJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7QUFDTyxTQUFTQSxLQUFULENBQWVDLENBQWYsRUFBMEJDLENBQTFCLEVBQTZDO0FBRWhELFNBQU9DLElBQUksQ0FBQ0MsR0FBTCxDQUFTSCxDQUFULEVBQVlDLENBQVosQ0FBUDtBQUNIOztBQUVNLFNBQVNHLFFBQVQsQ0FBa0JKLENBQWxCLEVBQTBCQyxDQUExQixFQUF1QztBQUUxQyxTQUFPQyxJQUFJLENBQUNDLEdBQUwsQ0FBU0gsQ0FBVCxFQUFZQyxDQUFaLENBQVA7QUFDSCIsInNvdXJjZXNDb250ZW50IjpbIlxuZXhwb3J0IGZ1bmN0aW9uIHBvd2VyKHg6IG51bWJlciwgeTogbnVtYmVyKTogbnVtYmVyIHtcblxuICAgIHJldHVybihNYXRoLnBvdyh4LCB5KSk7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBwb3dlckFueSh4OiBhbnksIHk6IGFueSk6IGFueSB7XG5cbiAgICByZXR1cm4oTWF0aC5wb3coeCwgeSkpO1xufVxuXG4iXX0=

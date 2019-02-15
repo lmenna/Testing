@@ -1,0 +1,21 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #fff;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+  background: #444;
+}
+
+.grid-container {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fill, 200px);
+  padding: 10px;
+}
+
+.grid-item {
+  background-color: steelblue;
+  border: 1px solid;
+  padding: 2px;
+}

@@ -9,7 +9,7 @@ function arrayNewTesting() {
   let newAry = new Array(10);
   // The next line will create an array with a single element set to the value 10.
   let ary = [10];
-  console.log("Result from let newAry = new Array(10)")
+  console.log("Result from let newAry = new Array(10)");
   console.log("newAry:", newAry);
   console.log("Result from let ary = [10]");
   console.log("ary:", ary);

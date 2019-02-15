@@ -13,7 +13,7 @@ function whatIsThis(aParam) {
       console.log("this inside the obj:", this);
       console.log("this.firstName inside the obj:", this.firstName);
     }
-  }
+  };
   obj.displayThis();
   console.log("this at the function level END:", this);
 }
@@ -22,23 +22,23 @@ function whatIsThis(aParam) {
  * desc: Classes are just functions in JavaScript.  Try to call the function directly without
  *       using new.
  */
- function leaveOutNew() {
+function leaveOutNew() {
 
-    class Person {
-      constructor(name, age) {
-        this.name = name;
-        this.age = age;
-      }
-      sayHello() {
-        return("Hello " + this.name);
-      }
+  class Person {
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
     }
+    sayHello() {
+      return("Hello " + this.name);
+    }
+  }
 
-    var p = new Person("Luigi", 11);
-    console.log("p:", p);
+  var p = new Person("Luigi", 11);
+  console.log("p:", p);
 
-    var p2 = Person("Luigi2", 22);
- }
+  var p2 = Person("Luigi2", 22);
+}
 
 
 /* Animal_V1
@@ -57,17 +57,17 @@ function Animal_V1(name, energy) {
   animal.eat = function(amount) {
     console.log(`${this.name} is eating.`);
     this.energy += amount;
-  }
+  };
 
   animal.sleep = function(length) {
     console.log(`${this.name} is sleeping.`);
     this.energy += length;
-  }
+  };
 
   animal.play = function(length) {
     console.log(`${this.name} is playing.`);
     this.energy -= length;
-  }
+  };
 
   return(animal);
 }
@@ -85,7 +85,7 @@ function testObjectCreate() {
     heritage: "Italian"
   };
 
-  console.log("Use Object.create() and see how properties are passed to the child.")
+  console.log("Use Object.create() and see how properties are passed to the child.");
   let child = Object.create(parent);
   child.name = "Junior";
   child.age = 12;
@@ -114,7 +114,7 @@ const animalMethods = {
     console.log(`${this.name} is playing.`);
     this.energy -= length;
   }
-}
+};
 
 /* Animal_V2
  * desc: Case where we create an Animal object using a function but in this case the methods
@@ -148,15 +148,15 @@ function Animal_V3(name, energy) {
   Animal_V3.prototype.eat = function(amount) {
     console.log(`${this.name} is eating.`);
     this.energy += amount;
-  }
+  };
   Animal_V3.prototype.sleep = function(length) {
     console.log(`${this.name} is sleeping.`);
     this.energy += length;
-  }
+  };
   Animal_V3.prototype.play = function(length) {
     console.log(`${this.name} is playing.`);
     this.energy -= length;
-  }
+  };
 
   return(animal);
 }
@@ -188,15 +188,15 @@ function AnimalWithNew(name, energy) {
 AnimalWithNew.prototype.eat = function(amount) {
   console.log(`${this.name} is eating.`);
   this.energy += amount;
-}
- AnimalWithNew.prototype.sleep = function(length) {
+};
+AnimalWithNew.prototype.sleep = function(length) {
   console.log(`${this.name} is sleeping.`);
   this.energy += length;
-}
+};
 AnimalWithNew.prototype.play = function(length) {
   console.log(`${this.name} is playing.`);
   this.energy -= length;
-}
+};
 
 /* AnimalAsClass
  * desc: This is the modern way to create a class in JavaScript.  The previous examples are valuable
@@ -224,4 +224,4 @@ class AnimalAsClass {
 }
 
 export { whatIsThis, testObjectCreate, Animal_V1, Animal_V2, Animal_V3, AnimalWithNew, AnimalAsClass,
-  leaveOutNew }
+  leaveOutNew };

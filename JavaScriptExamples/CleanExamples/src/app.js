@@ -1,6 +1,13 @@
-"use strict";
+/* app.js
+ * desc: Used to launch various JavaScript examples.  Each function in this file will run code
+ *       that shows how a specific JavaScript feature works.  Feel free to add more examples
+ *       and to run only those examples that are interesting to you.
+ */
 
-import { PersonClosure } from "./Closure";
+"use strict";
+require("@babel/polyfill");
+
+import { PersonClosure, createCounters } from "./Closure";
 import { aBigOne, addOne, aBigOneBN, addOneBN } from "./BigNumbers";
 import { defaultParametersMultiply, templateLiterals, multiLineStrings,
   scopeTestVar, scopeTestLet, PersonClass, Employee, forEachTest, forEachAnonymousTest,
@@ -11,7 +18,17 @@ import { whatIsThis, testObjectCreate, Animal_V1, Animal_V2, Animal_V3, AnimalWi
   leaveOutNew } from "./classesAndThis";
 import { arrayNewTesting } from "./Arrays";
 import { PersonAsClass, PersonAsFunction } from "./babelClassGen";
+import { codeBlocker, codeNonBlocker, myPromiseStillBlocking, myPromiseInParallel, myPromiseError } from "./AsyncAwait.js";
 
+// Utility to log with a timestamp.
+const start = Date.now();
+const log = (msg) => {console.log( `     -->> ${Date.now()-start} ${msg}` )}
+
+/* runClosureExample()
+ * desc: A closure is a function with an internal state that perisists after the function
+ *       is called.  This function is not a closure, but it runs the function which are.
+ *       The closure functions are located in Closure.js  
+ */
 function runClosureExample() {
   console.log("\n--->> runClosureExample");
   var p = new PersonClosure("Luigi");
@@ -23,8 +40,29 @@ function runClosureExample() {
 }
 
 
-function runBigNumberExample() {
 
+function runClosureImplementingACounter() {
+
+  console.log("\n--->> runClosureImplementingACounter - Another closure example.");
+  console.log("Create one counter closure.");
+  console.log("The counter closure has one variable in the PLSRD - Persistent Lexically Scoped Reference Data");
+  console.log("This variable is internally called counter.");
+  console.log("It can only be accessed using the functions returned by createCounters");
+  let [incrementCounter, decrementCounter] = createCounters();
+  incrementCounter();incrementCounter();incrementCounter();
+  decrementCounter();
+
+  console.log("Create another counter closure.");
+  console.log("It is expected that this new closure will have its own counter, starting back at 0.");
+  [incrementCounter, decrementCounter] = createCounters();
+  incrementCounter();incrementCounter();incrementCounter();
+  decrementCounter();
+}
+
+/* runBigNumberExample()
+ * desc: 
+ */
+function runBigNumberExample() {
   console.log("\n--->> runBigNumberExample");
   console.log("BigNumber Example");
   let aNumber = aBigOne();
@@ -37,6 +75,9 @@ function runBigNumberExample() {
   outputBN(aBN);
 }
 
+/* outputBigNumber()
+ * desc: 
+ */
 function outputBigNumber(aNumber) {
   console.log("BigNumber:", aNumber);
   console.log("BigNumber.toString():", aNumber.toString());
@@ -50,6 +91,9 @@ function outputBN(aNumber) {
   console.log("BN.toString():", aNumber.toString());
 }
 
+/* runES6Features()
+ * desc: 
+ */
 function runES6Features() {
 
   console.log("\n--->> runES6Features");
@@ -202,18 +246,95 @@ function runArrayTests() {
 function runBabelGenTest() {
 
   console.log("\n--->> runBabelGenTest");
-  console.log("let p1 = new PersonAsFunction()")
+  console.log("let p1 = new PersonAsFunction()");
   let p1 = new PersonAsFunction();
-  console.log("let p2 = new PersonAsFunction(\"Luigi\", 21)")
+  console.log("let p2 = new PersonAsFunction(\"Luigi\", 21)");
   let p2 = new PersonAsFunction("Luigi", 21);
 }
 
+/* runAsyncAwaitBlocker
+ * desc: Shows how promises can still result in calls that are blocking and run sequentially.
+ */
+async function runAsyncAwaitBlocker() {
+  log("Start: runAsyncAwaitBlocker");
+
+  log("Synchronous 1");
+  codeBlocker("CB1").then(log);
+  log("Synchronous 2");
+  codeBlocker("CB2").then(log);
+  log("Synchronous 3");
+
+  // log("01 await await three tasks in sequence.");
+  // let startTime = Date.now();
+  // let task1 = await myPromiseStillBlocking("task1");
+  // log(`02 First task is done.  Result: ${task1}`);
+  // let task2 = await myPromiseStillBlocking("task2");
+  // log(`03 Second task is done.  Result: ${task2}`);
+  // let task3 = await myPromiseStillBlocking("task3");
+  // log(`04 Third task is done.  Result: ${task3}`);
+  // let task4 = await myPromiseStillBlocking("task4");
+  // log(`05 Fourth task is done.  Result: ${task4}`);
+  // let task5 = await myPromiseStillBlocking("task5");
+  // let endTime = Date.now();
+  // log(`06 Fifth task is done.  Result: ${task5}`);
+  // console.log(`${endTime-startTime} msec. Total time for 5 tasks run synchronously.`);
+  // console.log("Now run the tasks simultameously.");
+  // startTime = Date.now();
+  // const [task1p, task2p, task3p, task4p, task5p] = await Promise.all([
+  //   myPromiseInParallel("task1p"),
+  //   myPromiseInParallel("task2p"),
+  //   myPromiseInParallel("task3p"),
+  //   myPromiseInParallel("task4p"),
+  //   myPromiseInParallel("task5p")
+  // ]);
+  // endTime = Date.now();
+  // console.log(`${endTime-startTime} msec. Total time for 3 tasks run simultaneously.`); 
+  log("End: runAsyncAwaitBlocker");
+}
+
+/* runAsyncAwaitNonBlocker
+ * desc: Shows how promises can still result in calls that are blocking and run sequentially.
+ */
+async function runAsyncAwaitNonBlocker() {
+  log("Start: runAsyncAwaitNonBlocker");
+
+  log("Synchronous 1");
+  const a = codeNonBlocker("CnB1");
+  log("Synchronous 2");
+  const b = codeNonBlocker("CnB2");
+  log("Synchronous 3");
+  await Promise.all([a,b]);
+  log("End: runAsyncAwaitNonBlocker");
+}
+
+
+/* runAsyncAwaitPromiseError
+ * desc: Shows the correct way to handle errors from functions that return promises.
+ */ 
+async function runAsyncAwaitPromiseError() {
+  log("Start: runIt");
+  log("01 await myPromiseError");
+  try {
+    console.log(`Result = ${await myPromiseError()}`);
+  }
+  catch(err) {
+    console.log("Caught an error: ", err);
+  }
+  log("End: runAsyncAwaitPromiseError");
+}
+
+
 // Call the runner function here.  Uncomment the ones you'd like to test.
-// runES6Features();
+runClosureExample();
+runClosureImplementingACounter();
+//runES6Features();
 //runLexicalScope();
 //runES6Features();
 //runsetTimeout();
 //runBigNumberExample();
-runclassesAndThis();
-runArrayTests();
-runBabelGenTest();
+//runclassesAndThis();
+//runArrayTests();
+//runBabelGenTest();
+//runAsyncAwaitBlocker();
+//runAsyncAwaitNonBlocker();
+//runAsyncAwaitPromiseError();

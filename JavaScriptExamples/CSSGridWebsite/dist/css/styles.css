@@ -1,0 +1,15 @@
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #fff;
+  background: #444; }
+
+.grid-container {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fill, 200px);
+  padding: 10px; }
+
+.grid-item {
+  background-color: steelblue;
+  border: 1px solid;
+  padding: 2px; }

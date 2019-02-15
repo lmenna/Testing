@@ -4,11 +4,19 @@ var _dbUtils = require("./utils/dbUtils");
 
 var _timers = require("./utils/timers");
 
+var _getCryptoData = require("./utils/getCryptoData");
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 require("@babel/polyfill");
+
+var poloniexURL = "https://poloniex.com/public?command=returnTicker";
+var coinbaseURL = "https://api.pro.coinbase.com/products";
+var bittrexURLAll = "https://bittrex.com/api/v1.1/public/getmarketsummaries";
+var hitbtcURL = "https://api.hitbtc.com/api/2/public/ticker";
+var yobitBaseURL = "https://yobit.net/api/3/ticker/";
 
 var runAsyncTest01 =
 /*#__PURE__*/
@@ -152,7 +160,7 @@ function () {
   };
 }();
 /* runTimerAsync02
- * desc: Uses setTimeout to produce a delay to test async await code.  Returns failure.
+ * desc: Test a async failure.  Uses setTimeout to produce a delay to test async await code.  Returns failure.
  */
 
 
@@ -237,11 +245,104 @@ function () {
   return function runSlowMath() {
     return _ref5.apply(this, arguments);
   };
+}();
+/* runMarketDataTest()
+ * desc: Queries various exchanges for market data.  First it does this sequentially using
+ *       await on each request.  Next it does this in parallel awaiting on all request simultaneously
+ */
+
+
+var runMarketDataTest =
+/*#__PURE__*/
+function () {
+  var _ref6 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee6() {
+    var startAwait, polo, poloTime, cb, cbTime, bt, btTime, hb, hbTime, endAwait, startAwaitAll, polo2, cb2, bt2, hb2, endAwaitAll;
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            console.log("Begin: runMarketDataTest");
+            startAwait = Date.now();
+            _context6.prev = 2;
+            _context6.next = 5;
+            return (0, _getCryptoData.getExchangeData)(poloniexURL);
+
+          case 5:
+            polo = _context6.sent;
+            poloTime = Date.now();
+            _context6.next = 9;
+            return (0, _getCryptoData.getExchangeData)(coinbaseURL);
+
+          case 9:
+            cb = _context6.sent;
+            cbTime = Date.now();
+            _context6.next = 13;
+            return (0, _getCryptoData.getExchangeData)(bittrexURLAll);
+
+          case 13:
+            bt = _context6.sent;
+            btTime = Date.now();
+            _context6.next = 17;
+            return (0, _getCryptoData.getExchangeData)(hitbtcURL);
+
+          case 17:
+            hb = _context6.sent;
+            hbTime = Date.now();
+            console.log("Polo: ".concat(poloTime - startAwait, "  CB: ").concat(cbTime - poloTime, "  BT: ").concat(btTime - cbTime, "  HB: ").concat(hbTime - btTime));
+            console.log("Time for awaiting each exchange seperately: ".concat(hbTime - startAwait));
+            _context6.next = 26;
+            break;
+
+          case 23:
+            _context6.prev = 23;
+            _context6.t0 = _context6["catch"](2);
+            console.log("Error getting data sequentially: ".concat(_context6.t0));
+
+          case 26:
+            endAwait = Date.now();
+            startAwaitAll = Date.now();
+            console.log("Get all exchange data simultaneously.");
+            _context6.prev = 29;
+            polo2 = (0, _getCryptoData.getExchangeData)(poloniexURL);
+            cb2 = (0, _getCryptoData.getExchangeData)(coinbaseURL);
+            bt2 = (0, _getCryptoData.getExchangeData)(bittrexURLAll);
+            hb2 = (0, _getCryptoData.getExchangeData)(hitbtcURL);
+            _context6.next = 36;
+            return Promise.all([polo2, cb2, bt2, hb2]);
+
+          case 36:
+            _context6.next = 41;
+            break;
+
+          case 38:
+            _context6.prev = 38;
+            _context6.t1 = _context6["catch"](29);
+            console.log("Error getting data simultaneously: ".concat(_context6.t1));
+
+          case 41:
+            endAwaitAll = Date.now();
+            console.log("Time for awaiting all exchanges together: ".concat(endAwaitAll - startAwaitAll));
+            console.log("End: runMarketDataTest");
+
+          case 44:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6, this, [[2, 23], [29, 38]]);
+  }));
+
+  return function runMarketDataTest() {
+    return _ref6.apply(this, arguments);
+  };
 }(); //runAsyncTest01();
 //runAsyncTest02();
+// runTimerAsync01();
+// runTimerAsync02();
+// runSlowMath();
 
 
-runTimerAsync01();
-runTimerAsync02();
-runSlowMath();
+setInterval(runMarketDataTest, 10000);
 //# sourceMappingURL=app.js.map

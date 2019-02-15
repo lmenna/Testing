@@ -7,18 +7,18 @@
  *
  */
 
- var _createClass = function () {
-   console.log("In _createClass");
-   function defineProperties(target, props) {
-     console.log("In defineProperties");
-     console.log("target:", target);
-     console.log("props:", props);
+var _createClass = function () {
+  console.log("In _createClass");
+  function defineProperties(target, props) {
+    console.log("In defineProperties");
+    console.log("target:", target);
+    console.log("props:", props);
 
-     for (var i = 0; i < props.length; i++) {
-       var descriptor = props[i];
-       descriptor.enumerable = descriptor.enumerable || false;
-       descriptor.configurable = true;
-       if ("value" in descriptor)
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor)
         descriptor.writable = true;
       Object.defineProperty(target, descriptor.key, descriptor);
     }
@@ -78,4 +78,4 @@ class PersonAsClass {
   }
 }
 
-export { PersonAsClass, PersonAsFunction }
+export { PersonAsClass, PersonAsFunction };

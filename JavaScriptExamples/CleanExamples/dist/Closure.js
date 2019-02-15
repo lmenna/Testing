@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.PersonClosure = PersonClosure;
+exports.createCounters = createCounters;
 
 /* Closure.js
  * desc: Shows how closures can be implemented in JavaScript
@@ -35,7 +36,7 @@ function PersonClosure(pName) {
     return "functionIsVisibleOutside worked";
   };
   /* this.nowICanSeeYou
-   * desc: Another example of openning up access to closed items within the Person function
+   * desc: Another example of opening up access to closed items within the Person function
    */
 
 
@@ -59,5 +60,30 @@ function PersonClosure(pName) {
   var functionNotVisibleOutside = function functionNotVisibleOutside() {
     console.log("functionNotVisibleOutside was called.");
   };
+} // Closure example #2
+// This example explicitly returns the functions used to access the closed over variable.
+// COVE - Closed Over Variable Environment
+// PLSRD - Persistent Lexically Scoped Reference Data
+
+
+function createCounters() {
+  // The variables here will be stored after this function exits.
+  // Store whatever you'd like.  Possibly a lookup table.
+  // For this example a single integer counter is stored.
+  // This variable will not be directly accessible.  It will be accessed using the function returned.  
+  var counter = 0;
+
+  function incrementCounter() {
+    counter++;
+    console.log("incr: ".concat(counter));
+  }
+
+  function decrementCounter() {
+    counter--;
+    console.log("decr: ".concat(counter));
+  } // Note that you can return as many methods as needed to access the internal state store in count.
+
+
+  return [incrementCounter, decrementCounter];
 }
 //# sourceMappingURL=Closure.js.map

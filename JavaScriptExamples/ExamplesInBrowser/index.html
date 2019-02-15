@@ -11,6 +11,23 @@
 <p id="elem3">This is elem3</p>
 <p>Links to other examples</p>
 <p><a href="html/infoGraphic.html">Infographic #1</a></p>
+<br/>
+<b>Uses the closure pattern to create a timer that can be bound to a DOM element.</b>
+<pre><code>
+function makeClosureForTimer(element, interval) {
+
+  var counter = 0; // Inner variable to this function.  Not visible outside.
+
+  setInterval(timeIt, interval);
+
+  // This function will be called on a timer.  It uses the counter to update the DOM periodically.
+  function timeIt() {
+    element.textContent = `${interval}ms per tick: ${counter}`;
+    counter++;
+  }
+}
+</code></pre>
+<br>
 <div id="div1"></div>
 <br>
 <p>The following parts of the page are for testing JavaScript's interaction with the HTML DOM</p>

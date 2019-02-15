@@ -13,25 +13,30 @@ function makeClosureForTimer(element, interval) {
   var counter = 0;
   setInterval(timeIt, interval);
   function timeIt() {
-    element.textContent = interval + " : " + counter;
+    element.textContent = `${interval}ms per tick: ${counter}`;
     counter++;
   }
 }
 
 /* Modify the HTML page to include two p elements where we will display the timer counts. */
 // Timer1
+var element = document.getElementById("div1"); // Assume div1 was in index.html
 var para1 = document.createElement("p");
+var timer1Desc = document.createTextNode("This is timer1: ");
 var timer1 = document.createTextNode("This is timer1.");
 para1.setAttribute("id", "timer1");
+para1.appendChild(timer1Desc);
 para1.appendChild(timer1);
-var element = document.getElementById("div1"); // Assume div1 was in index.html
+element = document.getElementById("div1"); // Assume div1 was in index.html
 element.appendChild(para1);
 makeClosureForTimer(timer1, 500);
 // Timer2
 var para2 = document.createElement("p");
+var timer2Desc = document.createTextNode("This is timer2: ");
 var timer2 = document.createTextNode("This is timer2.");
 para2.setAttribute("id", "timer2");
+para2.appendChild(timer2Desc);
 para2.appendChild(timer2);
-var element = document.getElementById("div1"); // Assume div1 was in index.html
+element = document.getElementById("div1"); // Assume div1 was in index.html
 element.appendChild(para2);
 makeClosureForTimer(timer2, 600);

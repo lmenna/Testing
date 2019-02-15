@@ -31,7 +31,7 @@ function PersonClosure(pName) {
   };
 
   /* this.nowICanSeeYou
-   * desc: Another example of openning up access to closed items within the Person function
+   * desc: Another example of opening up access to closed items within the Person function
    */
   this.nowICanSeeYou = function() {
 
@@ -53,7 +53,29 @@ function PersonClosure(pName) {
   var functionNotVisibleOutside = function() {
     console.log("functionNotVisibleOutside was called.");
   };
-
 }
 
-export { PersonClosure }
+
+// Closure example #2
+// This example explicitly returns the functions used to access the closed over variable.
+// COVE - Closed Over Variable Environment
+// PLSRD - Persistent Lexically Scoped Reference Data
+function createCounters() {
+  // The variables here will be stored after this function exits.
+  // Store whatever you'd like.  Possibly a lookup table.
+  // For this example a single integer counter is stored.
+  // This variable will not be directly accessible.  It will be accessed using the function returned.  
+  let counter = 0;
+  function incrementCounter(){
+    counter++;
+    console.log(`incr: ${counter}`);
+  }
+  function decrementCounter(){
+    counter--;
+    console.log(`decr: ${counter}`);
+  }
+  // Note that you can return as many methods as needed to access the internal state store in count.
+  return([incrementCounter, decrementCounter]);
+}
+
+export { PersonClosure, createCounters }
